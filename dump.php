@@ -66,8 +66,8 @@ function dump($data, $maxNests = 3, $nest = 1, $lastKey = -1) {
             if(is_array($val)) {
                 if($nest >= $maxNests) {
                     $aSize = count($val);
-                    echo $spaces . $key . ' => ' . $br
-                         . $spaces . '<span style="font-weight: bold">array</span>(<span style="font-style: italic">size='
+                    echo $spaces . $key . ' => '
+                         . '<span style="font-weight: bold">array</span>(<span style="font-style: italic">size='
                          . $aSize . '</span>) ...' . $br;
                     continue;
                 }
