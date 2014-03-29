@@ -57,11 +57,14 @@ function dump($data, $nest = 1, $lastKey = -1) {
 	if(is_array($data)) {
 		$size = count($data);
 		$nestSpaces = str_repeat(' ', $nest * 2);
-		echo ($nest < 3 ? str_repeat(' ', $nest) : $nestSpaces)
+		echo ($nest < 2 ? str_repeat(' ', $nest) : $nestSpaces)
 		     . ($lastKey > -1 ? $lastKey . ' => ' . $newLine
 		     . $nestSpaces : '') . '<span style="font-weight: bold">array</span> (<span style="font-style: italic">size='
 		     . $size . '</span>)' . $newLine;
 		foreach($data as $key => $val) {
+			if(is_string($key)) {
+				$key = "'$key'";
+			}
 			if(is_array($val)) {
 				if($nest >= 3) {
 					$aSize = count($val);
