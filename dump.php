@@ -1,6 +1,6 @@
 <?php
 function dump($data, $nest = 1, $lastKey = -1) {
-    $newLine = '<br />';
+    $br = '<br />';
     if($nest == 1) {
         echo '<pre class="php-dump">';
     }
@@ -56,11 +56,9 @@ function dump($data, $nest = 1, $lastKey = -1) {
     };
     if(is_array($data)) {
         $size = count($data);
-        $nestSpaces = str_repeat(' ', $nest * 2);
-        echo ($nest < 2 ? str_repeat(' ', $nest) : $nestSpaces)
-             . ($lastKey > -1 ? $lastKey . ' => ' . $newLine
-             . $nestSpaces : '') . '<span style="font-weight: bold">array</span> (<span style="font-style: italic">size='
-             . $size . '</span>)' . $newLine;
+        $spaces = str_repeat('  ', $nest);
+        echo '<span style="font-weight: bold">array</span> (<span style="font-style: italic">size='
+             . $size . '</span>)' . $br;
         foreach($data as $key => $val) {
             if(is_string($key)) {
                 $key = "'$key'";
@@ -68,19 +66,21 @@ function dump($data, $nest = 1, $lastKey = -1) {
             if(is_array($val)) {
                 if($nest >= 3) {
                     $aSize = count($val);
-                    echo $nestSpaces . '  ' . $key . ' => ' . $newLine
-                         . $nestSpaces . '    <span style="font-weight: bold">array</span>(<span style="font-style: italic">size='
-                         . $aSize . '</span>) ...' . $newLine;
+                    echo $spaces . '  ' . $key . ' => ' . $br
+                         . $spaces . '    <span style="font-weight: bold">array</span>(<span style="font-style: italic">size='
+                         . $aSize . '</span>) ...' . $br;
                     continue;
                 }
+                echo ($key > -1 ? $spaces . $key . ' => ' . $br
+                     . $spaces : $spaces);
                 dump($val, $nest + 1, $key);
             } else {
                 $val = $parse($val);
-                echo $nestSpaces . ($nest < 2 ? '' : '  ') . $key . ' => ' . $val . $newLine;
+                echo $spaces . $key . ' => ' . $val . $br;
             }
         }
     } else {
-        echo $parse($data) . $newLine;
+        echo $parse($data) . $br;
     }
     if($nest == 1) {
         echo '</pre>';
