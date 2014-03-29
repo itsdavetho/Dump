@@ -1,5 +1,5 @@
 <?php
-function dump($data, $nest = 1, $lastKey = -1) {
+function dump($data, $maxNests = 3, $nest = 1, $lastKey = -1) {
     $br = '<br />';
     if($nest == 1) {
         echo '<pre class="php-dump">';
@@ -64,16 +64,16 @@ function dump($data, $nest = 1, $lastKey = -1) {
                 $key = "'$key'";
             }
             if(is_array($val)) {
-                if($nest >= 3) {
+                if($nest >= $maxNests) {
                     $aSize = count($val);
-                    echo $spaces . '  ' . $key . ' => ' . $br
-                         . $spaces . '    <span style="font-weight: bold">array</span>(<span style="font-style: italic">size='
+                    echo $spaces . $key . ' => ' . $br
+                         . $spaces . '<span style="font-weight: bold">array</span>(<span style="font-style: italic">size='
                          . $aSize . '</span>) ...' . $br;
                     continue;
                 }
                 echo ($key > -1 ? $spaces . $key . ' => ' . $br
                      . $spaces : $spaces);
-                dump($val, $nest + 1, $key);
+                dump($val, $maxNests, $nest + 1, $key);
             } else {
                 $val = $parse($val);
                 echo $spaces . $key . ' => ' . $val . $br;
