@@ -30,7 +30,7 @@ function dump($data, $maxNests = 3, $nest = 1, $lastKey = -1) {
                 $value = htmlentities($value);
                 $value = '<span style="font-size: 85%">' . $type . '</span> '
                          . sprintf($span, "'$value'" . ($len > 512 ? '...' : ''))
-                         . ' (<span style="font-style: italic">length=' . $len . '</span>)';
+                         . ' <span style="font-style: italic">(length=' . $len . ')</span>';
                 break;
             case 'boolean':
                 $value = '<span style="font-size: 85%">' . $type . '</span> '
@@ -57,8 +57,8 @@ function dump($data, $maxNests = 3, $nest = 1, $lastKey = -1) {
     if(is_array($data)) {
         $size = count($data);
         $spaces = str_repeat('  ', $nest);
-        echo '<span style="font-weight: bold">array</span> (<span style="font-style: italic">size='
-             . $size . '</span>)' . $br;
+        echo '<span style="font-weight: bold">array</span> <span style="font-style: italic">(size='
+             . $size . ')</span>' . $br;
         foreach($data as $key => $val) {
             if(is_string($key)) {
                 $key = "'$key'";
@@ -67,8 +67,8 @@ function dump($data, $maxNests = 3, $nest = 1, $lastKey = -1) {
                 if($nest >= $maxNests) {
                     $aSize = count($val);
                     echo $spaces . $key . ' => '
-                         . '<span style="font-weight: bold">array</span>(<span style="font-style: italic">size='
-                         . $aSize . '</span>) ...' . $br;
+                         . '<span style="font-weight: bold">array</span><span style="font-style: italic">(size='
+                         . $aSize . ')</span> ...' . $br;
                     continue;
                 }
                 echo ($key > -1 ? $spaces . $key . ' => ' . $br
